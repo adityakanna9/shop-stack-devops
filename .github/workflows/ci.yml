@@ -1,0 +1,23 @@
+
+name: Shop Stack CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build frontend Docker image
+        run: docker build -t shop-frontend:latest ./client
+
+      - name: Build API Docker image
+        run: docker build -t shop-api:latest ./server
